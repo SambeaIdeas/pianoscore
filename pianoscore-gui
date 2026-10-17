@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Abre la ventana de pianoscore.
+set -euo pipefail
+RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="$RAIZ/.venv/bin/python"
+if [ ! -x "$PY" ]; then
+  echo "Falta el entorno virtual. Ejecuta primero: $RAIZ/instalar.sh" >&2
+  exit 1
+fi
+export PYTHONPATH="$RAIZ/src${PYTHONPATH:+:$PYTHONPATH}"
+exec "$PY" -m pianoscore.gui "$@"
